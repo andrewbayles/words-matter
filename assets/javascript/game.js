@@ -27,7 +27,7 @@ function newWord() { // Primary loop. Select a new word and begin playing.
 	var guessedInWordList = [];
 	var guessedOutWordList = [];
 
-	document.getElementById("guessedLetters").innerHTML = ""; // Reset the displayed list of guessed letters.
+	document.getElementById("guessedLetters").innerHTML = "&nbsp;"; // Reset the displayed list of guessed letters.
 
 	if ( movieList.length > 0 ) {
 		var randomMovie = movieList[Math.floor( Math.random() * movieList.length )]; // Choose a random word from the established list.
@@ -38,8 +38,13 @@ function newWord() { // Primary loop. Select a new word and begin playing.
 
 	var randomMovieLetters = randomMovie.split(""); // Turn the word into an array of letters.
 
-	var numUserGuesses = randomMovieLetters.length + 10; // Create a limited number of user guesses and display them to the screen.
-	document.write( 'Letter guesses remaining: <span id="guessesLeft">' + numUserGuesses + "</span>" );
+	var numUserGuesses = randomMovieLetters.length + 10; // Create a limited number of user guesses.
+	
+
+
+	// document.write( 'Letter guesses remaining: <span id="guessesLeft">' + numUserGuesses + "</span>" ); // BUGGY
+
+
 
 	var letterDisplayId = "";
 
@@ -70,9 +75,15 @@ function newWord() { // Primary loop. Select a new word and begin playing.
 
 					if ( !guessedInWordList.includes( keyPressed ) ) { // Check to see if the letter has been revealed yet. If it hasn't,
 						
-						for ( var i = 0; i < randomMovieLetters.length; i++ ) { // Reveal that letter.
+
+
+
+						for ( var i = 0; i < randomMovieLetters.length; i++ ) { // Reveal that letter. BUGGY
 							document.getElementById( "letter-" + i ).innerHTML = keyPressed;
 						}
+
+
+
 
 						for ( var i = 0; i < randomMovieLetters.length; i++ ) { // Check to see if all the letters have been revealed.
 							if ( document.getElementById( "letter-" + i ).innerHTML === "_" ) {
@@ -83,26 +94,26 @@ function newWord() { // Primary loop. Select a new word and begin playing.
 						if ( wordGuessed ) { 
 							wordWin( randomMovie ); // This word is a win, next word!
 						}
-
 					}
 				
 				} else { // Else, if the letter isn't in the random word,
 					
 					if ( !guessedOutWordList.includes( keyPressed ) ) { // Check to see if the letter has been guessed yet. If it hasn't,
-
 						guessedOutWordList.push( keyPressed ); // Add the letter to the list of guessed letters.
 						
 						for ( var i = 0; i < guessedOutWordList.length; i++ ) { // Refresh the displayed list of guessed letters.
-							document.getElementById("guessedLetters").innerHTML += guessedOutWordList[i] + "&nbsp;";
+
+
+
+							// document.getElementById("guessedLetters").innerHTML += guessedOutWordList[i] + "&nbsp;"; // BUGGY
+						
+
 						}
 
 						numUserGuesses--; // Decrease the number of user guesses by one.
 						document.getElementById("guessesLeft").innerHTML = numUserGuesses; // Refresh the displayed number of guesses left.
-					
 					}
-				
 				}
-
 			}
 
 		} else { 
